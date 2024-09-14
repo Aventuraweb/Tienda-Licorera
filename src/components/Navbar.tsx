@@ -17,7 +17,7 @@ const NavBar = () => {
 
 return (
 
-<div>
+<div className="hidden sm:block">
     <nav className="bg-gray-900 p-4 flex justify-between items-center border-b-4 border-blue-400">
       {/* Logo Section  */}
       <div className="flex items-center">
