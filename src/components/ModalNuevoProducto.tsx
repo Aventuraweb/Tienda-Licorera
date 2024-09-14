@@ -21,8 +21,8 @@ const Modal = ({ showModal, onClose, product }: ModalProps) => {
   if (!showModal) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div className="border-2 border-gray-700 rounded-lg shadow-lg p-6 w-[500px] relative bg-black">
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="border-2 border-gray-700 rounded-lg shadow-lg p-6 w-[90%] sm:w-[500px] relative bg-black">
       {/* Botón de cerrar */}
       <button className="absolute top-2 right-2 text-white text-2xl" onClick={onClose}>
         &times;
