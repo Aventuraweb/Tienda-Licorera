@@ -22,7 +22,7 @@ const Modal = ({ showModal, onClose, product }: ModalProps) => {
 
   return (
   <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div className="border-2 border-gray-700 rounded-lg shadow-lg p-6 w-[90%] sm:w-[500px] relative bg-black">
+    <div className="border-2 border-gray-700 rounded-lg shadow-lg p-6 w-[80%] sm:w-[500px] relative bg-black">
       {/* Botón de cerrar */}
       <button className="absolute top-2 right-2 text-white text-2xl" onClick={onClose}>
         &times;
@@ -93,14 +93,14 @@ const Modal = ({ showModal, onClose, product }: ModalProps) => {
         <div className="flex justify-between mt-6 space-x-6">
           <button
             type="submit"
-            className="border-2 border-blue-500 text-blue-500 py-2 px-6 rounded hover:bg-blue-600 hover:text-white transition"
+            className="border-2 border-blue-500 text-blue-500 py-1 px-3 sm:py-2 sm:px-6 rounded hover:bg-blue-600 hover:text-white transition"
           >
             GUARDAR
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="border-2 border-white-500 text-white-500 py-2 px-6 rounded hover:bg-gray-600 hover:text-white transition"
+            className="border-2 border-white-500 text-white-500 py-1 px-3 sm:py-2 sm:px-6 rounded hover:bg-gray-600 hover:text-white transition"
           >
             CERRAR
           </button>
