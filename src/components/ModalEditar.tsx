@@ -27,7 +27,7 @@ const Modal = ({ showModal, onClose, product }: ModalProps) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="border-2 border-blue-400 rounded-lg shadow-lg p-6 w-60 sm:w-96 relative bg-blue-800 bg-opacity-25">
+      <div className="border-2 border-blue-400 rounded-lg shadow-lg p-6 w-80 sm:w-96 relative bg-blue-800 bg-opacity-25">
         <button
           className="absolute top-2 right-2 text-white"
           onClick={onClose}
