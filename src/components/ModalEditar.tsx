@@ -27,7 +27,7 @@ const Modal = ({ showModal, onClose, product }: ModalProps) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="border-2 border-blue-400 rounded-lg shadow-lg p-6 w-96 relative bg-blue-800 bg-opacity-25">
+      <div className="border-2 border-blue-400 rounded-lg shadow-lg p-6 w-60 sm:w-96 relative bg-blue-800 bg-opacity-25">
         <button
           className="absolute top-2 right-2 text-white"
           onClick={onClose}
@@ -74,14 +74,14 @@ const Modal = ({ showModal, onClose, product }: ModalProps) => {
           <div className="flex justify-between">
             <button
               type="submit"
-              className="border-2 border-blue-400 text-blue-400 py-2 px-4 rounded shadow-lg hover:bg-blue-700"
+              className="border-2 border-blue-400 text-blue-400 py-1 px-2 sm:py-2 sm:px-4 rounded shadow-lg hover:bg-blue-700"
             >
               GUARDAR
             </button>
             <button
               type="button"
               onClick={onClose}
-              className=" border-2 border-white-400  text-white py-2 px-4 rounded shadow-lg hover:bg-gray-600"
+              className=" border-2 border-white-400  text-white py-1 px-2 sm:py-2 sm:px-4 rounded shadow-lg hover:bg-gray-600"
             >
               CERRAR
             </button>
