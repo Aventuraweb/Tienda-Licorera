@@ -1,9 +1,11 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+
+import express,{ Application, Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import session from 'express-session';
 import {sessionStore} from '../src/config/db'; 
-import authRoutes from '../src/routes/routeAuth'
+import authRoutes from '../src/routes/routeAuth'; 
+import productsRoutes  from '../src/routes/routeProducts'
 import { logger, stream } from '../src/utils/logger';
 import dotenv from 'dotenv';
 
@@ -37,6 +39,7 @@ app.use(
 
 // Definir las rutas de la API
 app.use('/api', authRoutes); 
+app.use('/api', productsRoutes)
 
   // Manejo de errores global
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
