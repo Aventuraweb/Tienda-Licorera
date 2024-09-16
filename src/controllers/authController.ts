@@ -13,8 +13,9 @@ export const registerUser = async (req: Request, res: Response): Promise<Respons
     const existingUser = (await query('SELECT * FROM usuarios WHERE correo = ?', [correo])) as RowDataPacket[];
     if (existingUser.length > 0) {
       return res.status(400).json({ error: 'El usuario ya existe.' });
-    }
-
+    }else{
+    // Si el usuario no existe, continuar con el registro
+   
     // Cifrar la contraseña
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -22,7 +23,9 @@ export const registerUser = async (req: Request, res: Response): Promise<Respons
     const sql = 'INSERT INTO usuarios (nombre_usuario, correo, password) VALUES (?, ?, ?)';
     await query(sql, [nombreUsuario, correo, hashedPassword]);
 
+      // Devolver una respuesta de éxito
     return res.status(201).json({ message: 'Usuario registrado exitosamente' });
+  }
   } catch (err: any) {
     console.error('Error al registrar usuario:', err.message);
     return res.status(500).json({ error: 'Error al registrar usuario' });
