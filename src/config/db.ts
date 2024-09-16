@@ -1,4 +1,6 @@
 import mysql, { Pool } from 'mysql2/promise'; // Importa `Pool` para tipar el pool de conexiones
+import * as session from 'express-session';
+import MySQLStoreFactory from 'express-mysql-session';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -32,4 +34,16 @@ const pool: Pool = mysql.createPool({
 // Exportar el pool de conexiones
 export const connection = pool;
 
+// Crear la fábrica de `MySQLStore`
+const MySQLStore = MySQLStoreFactory(session);
 
+// Configuración del almacenamiento de sesiones en MySQL
+const sessionStore = new MySQLStore(
+  {
+    expiration: 10800000, // 3 horas
+    createDatabaseTable: true,
+  },
+  pool as any // Usa el pool en lugar de una única conexión
+);
+
+export { sessionStore };
