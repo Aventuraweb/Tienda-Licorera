@@ -1,11 +1,13 @@
 
 import express,{ Application, Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
+import Cors from 'cors';
 import morgan from 'morgan';
 import session from 'express-session';
 import {sessionStore} from '../src/config/db'; 
 import authRoutes from '../src/routes/routeAuth'; 
-import productsRoutes  from '../src/routes/routeProducts'
+import productsRoutes  from '../src/routes/routeProducts'; 
+import UsersRoutes from '../src/routes/routeUsers'
 import { logger, stream } from '../src/utils/logger';
 import dotenv from 'dotenv';
 
@@ -13,6 +15,12 @@ dotenv.config();
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
+
+// Configurar CORS
+app.use(Cors({
+  origin: 'http://localhost:4321/', 
+  credentials: true, // Esto es necesario si estás usando cookies
+}));
 
 // Configuración de seguridad
 app.use(helmet());
@@ -40,6 +48,7 @@ app.use(
 // Definir las rutas de la API
 app.use('/api', authRoutes); 
 app.use('/api', productsRoutes)
+app.use('/api', UsersRoutes); 
 
   // Manejo de errores global
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
