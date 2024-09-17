@@ -1,9 +1,9 @@
 ---
-
 import CardTitulo from '../components/cardTitulo.astro';
 import Footer from '../components/footer.astro';
 import CardCategoria from '../components/CardCategoria'
 import Navbar from '../components/Navbar'
+import NavbarMovil from '../components/NavbarMovil'
 
 // Definir la interfaz Product
 interface Product {
@@ -65,5 +65,6 @@ const licores: Product[] = [
         />
     </main>
     <Footer />
+    <NavbarMovil client:load/>
   </body>
 </html>
