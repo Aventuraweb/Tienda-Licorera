@@ -1,15 +1,17 @@
 
 import express,{ Application, Request, Response, NextFunction } from 'express';
-import helmet from 'helmet';
+import dotenv from 'dotenv';
 import Cors from 'cors';
+import helmet from 'helmet';
 import morgan from 'morgan';
 import session from 'express-session';
 import {sessionStore} from '../src/config/db'; 
 import authRoutes from '../src/routes/routeAuth'; 
 import productsRoutes  from '../src/routes/routeProducts'; 
+import categoriaRoutes from '../src/routes/routeCategoria'
 import UsersRoutes from '../src/routes/routeUsers'
 import { logger, stream } from '../src/utils/logger';
-import dotenv from 'dotenv';
+
 
 dotenv.config();
 
@@ -18,8 +20,9 @@ const PORT = process.env.PORT || 3000;
 
 // Configurar CORS
 app.use(Cors({
-  origin: 'http://localhost:4321/', 
-  credentials: true, // Esto es necesario si estás usando cookies
+  origin: 'http://localhost:4321', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  credentials: true, 
 }));
 
 // Configuración de seguridad
@@ -49,6 +52,7 @@ app.use(
 app.use('/api', authRoutes); 
 app.use('/api', productsRoutes)
 app.use('/api', UsersRoutes); 
+app.use('/api', categoriaRoutes); 
 
   // Manejo de errores global
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
