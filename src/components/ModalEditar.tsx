@@ -1,95 +1,129 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import type { Product } from '../types'
 
-
-interface ModalProps {
-  showModal: boolean;
+interface ModalEditarProps {
+  producto: Product | null;
   onClose: () => void;
-  product: { name: string; precio$: any; image: string};
+  onSave: (updatedProduct: Product) => void;
+  categorias: { idcategoria: number; nombreCategoria: string }[]; // Agregando la prop para las categorías
 }
 
-const Modal = ({ showModal, onClose, product }: ModalProps) => {
+const ModalEditar: React.FC<ModalEditarProps> = ({ producto, onClose, onSave, categorias }) => {
+  const [nombre_producto, setNombreProducto] = useState(producto?.nombre_producto || '');
+  const [precio, setPrecio] = useState(producto?.precio || ''); // Asegurar que sea número
+  const [image_url, setImagen] = useState(producto?.image_url || '');
+  const [idcategoria, setIdcategoria] = useState(producto?.idcategoria || ''); // Cambio de categoriaId a idcategoria
+  const [mensaje, setMensaje] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Manejar el estado de los valores editables
-  const [name, setName] = useState(product.name);
-  const [image, setImage] = useState(product.image);
-  const [precio, setPrecio] = useState(product.precio$);
+  useEffect(() => {
+    // Sincronizar los valores de los inputs si cambia el producto
+    if (producto) {
+      setNombreProducto(producto.nombre_producto || '');
+      setPrecio(producto.precio || '');
+      setImagen(producto.image_url || '');
+      setIdcategoria(producto.idcategoria || '');
+    }
+  }, [producto]);
 
-  // Si el modal no está visible, no renderizar nada
-  if (!showModal) return null;
+  const handleSave = () => {
+    if (!producto) return;
 
-  // Función para manejar el envío del formulario (GUARDAR cambios)
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Aquí puedes enviar los datos actualizados al backend o actualizarlos en el estado global
-    console.log({ name, image, precio });
-    onClose(); // Cierra el modal después de guardar
+    // Asegurarse de que todos los campos estén llenos
+    try {
+    onSave({
+      ...producto,
+      idproducto: producto.idproducto,
+      nombre_producto,
+      precio, 
+      image_url,
+      idcategoria, 
+    });
+
+    // Recargar la página o redirigir a una URL específica
+    window.location.href = '/productos';
+    } catch (error) {
+      console.error('Error al guardar el producto:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="border-2 border-blue-400 rounded-lg shadow-lg p-6 w-80 sm:w-96 relative bg-blue-800 bg-opacity-25">
-        <button
-          className="absolute top-2 right-2 text-white"
-          onClick={onClose}
-        >
+      <div className="border-2 border-gray-700 rounded-lg shadow-lg p-6 w-[80%] sm:w-[500px] relative bg-black">
+        <button className="absolute top-2 right-2 text-white text-2xl" onClick={onClose}>
           &times;
         </button>
-        <h2 className="text-blue-400 text-3xl font-bold mb-4 text-center">
-          EDITAR CARD:
-        </h2>
+        <h2 className="text-white text-4xl font-bold mb-4 text-center">EDITAR PRODUCTO</h2>
         <form>
           <div className="mb-4">
-            <label className="block text-white-400 text-sm font-bold mb-2">
-              Nombre
-            </label>
+            <label className="block text-gray-400 text-sm font-bold mb-2">Nombre</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)} // Actualiza el estado al cambiar el input
-              className="w-full p-2 border-2 border-blue-400 rounded bg-transparent"
+              value={nombre_producto}
+              onChange={(e) => setNombreProducto(e.target.value)}
+              className="w-full p-3 border border-gray-700 rounded bg-black text-white"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-white-400 text-sm font-bold mb-2">
-              Imagen
-            </label>
-            <input
-              type="url"
-              value={image}
-              onChange={(e) => setImage(e.target.value)} // Actualiza el estado al cambiar el input
-              className="w-full p-2 border-2 border-blue-400 rounded bg-transparent"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-white-400 text-sm font-bold mb-2">
-              Precio
-            </label>
+            <label className="block text-gray-400 text-sm font-bold mb-2">Precio</label>
             <input
               type="text"
               value={precio}
-              onChange={(e) => setPrecio(e.target.value)} // Actualiza el estado al cambiar el input
-              className="w-full p-2 border-2 border-blue-400 rounded bg-transparent"
+              onChange={(e) => setPrecio(e.target.value)} // Convertir a número
+              className="w-full p-3 border border-gray-700 rounded bg-black text-white"
             />
           </div>
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className="border-2 border-blue-400 text-blue-400 py-1 px-2 sm:py-2 sm:px-4 rounded shadow-lg hover:bg-blue-700"
+          <div className="mb-4">
+            <label className="block text-gray-400 text-sm font-bold mb-2">Imagen</label>
+            <input
+              type="url"
+              value={image_url}
+              onChange={(e) => setImagen(e.target.value)}
+              className="w-full p-3 border border-gray-700 rounded bg-black text-white"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-400 text-sm font-bold mb-2">Categoría</label>
+            <select
+                value={idcategoria} // Usar idcategoria
+                onChange={(e) => setIdcategoria(e.target.value)} // Convertir a número
+                className="w-full p-3 border border-gray-700 rounded bg-black text-white"
+              >
+                <option value="">Selecciona una categoría</option>
+                {categorias.map((categoria) => (
+                  <option key={categoria.idcategoria} value={categoria.idcategoria}>
+                    {categoria.nombreCategoria}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <div className="flex justify-between mt-6 space-x-6">
+            <button 
+              type="button" onClick={handleSave}
+              disabled={loading} // Desactiva el botón mientras se carga
+              className={`border-2 py-1 px-3 sm:py-2 sm:px-6 rounded transition ${
+                loading ? 'border-gray-500 text-gray-500' : 'border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-white'
+              }`}
             >
-              GUARDAR
+              {loading ? 'Guardando...' : 'GUARDAR'}
             </button>
             <button
               type="button"
               onClick={onClose}
-              className=" border-2 border-white-400  text-white py-1 px-2 sm:py-2 sm:px-4 rounded shadow-lg hover:bg-gray-600"
+              className="border-2 border-white-500 text-white-500 py-1 px-3 sm:py-2 sm:px-6 rounded hover:bg-gray-600 hover:text-white transition"
             >
               CERRAR
             </button>
           </div>
+          {mensaje && <p className="text-green-500 mt-4">{mensaje}</p>}
+          {error && <p className="text-red-500 mt-4">{error}</p>}
         </form>
       </div>
     </div>
   );
 };
 
-export default Modal;
+export default ModalEditar;

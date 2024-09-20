@@ -1,36 +1,9 @@
 ---
+import NavBar from '../components/Navbar';
 import CardTitulo from '../components/cardTitulo.astro';
+import Producto from '../components/Producto'
 import Footer from '../components/footer.astro';
-import CardCategoria from '../components/CardCategoria'
-import Navbar from '../components/Navbar'
 import NavbarMovil from '../components/NavbarMovil'
-
-// Definir la interfaz Product
-interface Product {
-  name: string;
-  image: string;
-  precio$: any; 
-  borderColor?: string;
-}
-
-// Listado de productos
-const cervezas: Product[] = [
-  { name: "Tres Cordilleras", image: "https://res.cloudinary.com/dd3oucmlo/image/upload/v1725928312/3-cordilleras_jfngny.png", precio$: "$ 6000"},
-  { name: "Stella artois", image: "https://res.cloudinary.com/dd3oucmlo/image/upload/v1725928357/220812050604_stellaartois-adlatina_sjmlvu.jpg", precio$: "$ 7000"},
-  { name: "Aguila", image: "https://res.cloudinary.com/dd3oucmlo/image/upload/v1725928362/AGUILA-BOTELLA-600x600_fqymnv.jpg", precio$: "$ 4000"},
-];
-
-const snacks: Product[] = [
-  { name: "Papas", image: "https://res.cloudinary.com/dd3oucmlo/image/upload/v1725928344/815CKByawWL._AC_UF894_1000_QL80__rjybat.jpg", precio$: "$ 4000", },
-  { name: "Chocolatinas", image: "https://res.cloudinary.com/dd3oucmlo/image/upload/v1725928318/450_1000_asqwvr.jpg", precio$: "$ 5000" },
-  { name: "Bom-Bom-Gum", image: "https://res.cloudinary.com/dd3oucmlo/image/upload/v1725928383/images_agyhff.jpg", precio$: "$ 700" },
-];
-
-const licores: Product[] = [
-  { name: "Buchanan`s", image: "https://res.cloudinary.com/dd3oucmlo/image/upload/v1725928412/unnamed_6_53de1a21-b4d5-4ee5-a488-a796896e9011_bm7ahw.webp", precio$: "$ 110000", },
-  { name: "Ron", image: "https://res.cloudinary.com/dd3oucmlo/image/upload/v1725928396/Imagenes-03-Licores-preferidos-Colombianos_dpirrn.jpg", precio$: "$ 58000" },
-  { name: "Baylis", image: "https://res.cloudinary.com/dd3oucmlo/image/upload/v1725928368/depositphotos_118386876-stock-photo-bottles-of-assorted-hard-liquor_f4isno.webp", precio$: "$ 50000" },
-];
 ---
 
 <html lang="es">
@@ -38,31 +11,13 @@ const licores: Product[] = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Página</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   </head>
   <body class="bg-black text-white min-h-screen flex flex-col">
-        <Navbar client:load/>
+        <NavBar client:load/>
     <main class="min-h-screen flex flex-col items-center p-4">
         <CardTitulo />
-        <CardCategoria client:load
-          categoriaTitulo="CERVEZAS"
-          productos={cervezas} 
-          borderColor="border-blue-500"
-          titleColor="bg-blue-500" 
-        />
-        <CardCategoria client:load
-          categoriaTitulo="SNACKS"
-          productos={snacks}
-          borderColor="border-green-400"
-          titleColor="bg-green-500" 
-        />
-        <CardCategoria client:load
-          categoriaTitulo="LICORES"
-          productos={licores}
-          borderColor="border-yellow-400"
-          titleColor="bg-yellow-400" 
-        />
+        <Producto client:load/>
     </main>
     <Footer />
     <NavbarMovil client:load/>
