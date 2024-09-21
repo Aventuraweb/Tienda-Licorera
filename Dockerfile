@@ -13,9 +13,6 @@ RUN npm install
 # Copiar el resto del código al contenedor
 COPY . .
 
-# Construir el proyecto si se utiliza TypeScript
-RUN npm run build
-
 # Exponer el puerto que utiliza la aplicación (cambiar según la configuración del backend)
 EXPOSE 3000
 
