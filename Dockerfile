@@ -1,5 +1,8 @@
 # Utilizar la imagen base de Node.js
-FROM node:18
+FROM node:18-bullseye
+
+# Instala el cliente mysql
+RUN apt-get update && apt-get install -y default-mysql-client && apt-get clean
 
 # Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app

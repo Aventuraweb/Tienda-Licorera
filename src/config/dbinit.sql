@@ -8,14 +8,14 @@ CREATE TABLE IF NOT EXISTS usuarios (
 CREATE TABLE IF NOT EXISTS categorias (
     idcategoria INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
     nombre_categoria VARCHAR(100) NOT NULL
-)
+);
 
 CREATE TABLE IF NOT EXISTS productos (
     idproducto INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre_producto VARCHAR(100) NOT NULL,
     precio DECIMAL(10, 2) NOT NULL,
     image_url VARCHAR(255) NOT NULL, 
-    idcategoria INT not NULL
+    idcategoria INT NOT NULL
 );
 
 -- Insertar datos iniciales de usuarios 
