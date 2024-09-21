@@ -2,7 +2,7 @@
 FROM node:18
 
 # Establecer el directorio de trabajo dentro del contenedor
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Copiar el archivo de package.json y package-lock.json
 COPY package*.json ./
@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Construir la aplicación de frontend
-RUN npx tsc
+RUN npm run build
 
 # Exponer el puerto del servidor web
 EXPOSE 4321
