@@ -1,0 +1,47 @@
+version: '3.9'
+services:
+  mysql_db:  
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: "7845"
+      MYSQL_DATABASE: "final"
+    ports:
+      - "3306:3306"
+    volumes:
+      - final_db_data:/var/lib/mysql
+      - ./final-Backend/src/config/dbinit.sql:/docker-entrypoint-initdb.d/dbinit.sql
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./final-Backend
+    container_name: node_api
+    ports:
+      - "3000:3000"  
+    env_file:
+      - .env
+    depends_on:
+      - mysql_db   
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./TiendaLicorera  
+      dockerfile: Dockerfile
+    container_name: frontend_app
+    ports:
+      - "4321:4321" 
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  final_db_data:
+
+networks:
+  app-network: {}
+  
