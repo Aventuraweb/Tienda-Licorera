@@ -132,13 +132,13 @@ const CardCategoria: React.FC<Props> = ({
         {productos.map((product) => (
           <div
             key={product.idproducto} // Usar el ID del producto como key
-            className={`inline-block bg-gray-800 rounded-lg overflow-hidden shadow-lg border-4  ${clases.borderColor} w-72 sm:w-72 h-auto mb-4 sm:mx-0`}
+            className={`inline-block bg-gray-800 rounded-lg overflow-hidden shadow-lg border-4  ${borderColor} w-72 sm:w-72 h-auto mb-4 sm:mx-0`}
           >
-            <div className={`border-2  ${clases.borderColor} h-32 w-full overflow-hidden `}>
+            <div className={`border-2  ${borderColor} h-32 w-full overflow-hidden `}>
               <img src={product.image_url} alt={product.nombre_producto} className="h-full w-full object-cover" />
             </div>
 
-            <div className={`text-center border-2 ${clases.borderColor}`}>
+            <div className={`text-center border-2 ${borderColor}`}>
               <div className="flex justify-center space-x-4 mt-4">
                 <h3 className="text-white font-bold text-lg">{product.nombre_producto}</h3>
                 <p>{product.precio}</p>
