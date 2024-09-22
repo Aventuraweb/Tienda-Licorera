@@ -64,7 +64,7 @@ const ModalNuevoProducto: React.FC<ModalProps> = ({ showModal, onClose, onProduc
     }
   }, [showModal]); // Volver a obtener categorías si se muestra el modal
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
     if (!nombreProducto || !precio || !imagen || !categoriaId) {
@@ -132,7 +132,7 @@ const ModalNuevoProducto: React.FC<ModalProps> = ({ showModal, onClose, onProduc
           &times;
         </button>
         <h2 className="text-white text-4xl font-bold mb-4 text-center">AGREGAR PRODUCTO</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleAddProduct}>
           <div className="mb-4">
             <label className="block text-gray-400 text-sm font-bold mb-2">Nombre</label>
             <input

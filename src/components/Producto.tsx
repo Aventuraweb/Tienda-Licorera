@@ -138,28 +138,20 @@ const Productos: React.FC = () => {
     return acc;
   }, {} as Record<string, Product[]>); // Definir un tipo explícito para el objeto acumulador
 
+   // Lista de colores para asignar a las categorías
+   const borderColors = ['border-blue-500', 'border-green-400', 'border-yellow-400'];
+   const titleColors = ['bg-blue-500', 'bg-green-500', 'bg-yellow-400'];
+
   return (
     <>
 
-      {Object.entries(productosPorCategoria).map(([categoria, productos]) => (
+      {Object.entries(productosPorCategoria).map(([categoria, productos], index: number) => (
         <CardCategoria
           key={categoria}
           categoriaTitulo={categoria.toUpperCase()}
           productos={productos}
-          borderColor={
-            categoria === 'cervezas'
-              ? 'border-blue-500'
-              : categoria === 'snacks'
-              ? 'border-green-400'
-              : 'border-yellow-400'
-          }
-          titleColor={
-            categoria === 'cervezas'
-              ? 'bg-blue-500'
-              : categoria === 'snacks'
-              ? 'bg-green-500'
-              : 'bg-yellow-400'
-          }
+          borderColor={borderColors[index % borderColors.length]} // Asigna un color de borde según el índice
+          titleColor={titleColors[index % titleColors.length]} // Asigna un color de título según el índice
           onProductUpdated={handleUpdateProduct} // Pasar la función para actualizar productos
           onDelete={handleDeleteProducto} // Pasar la función para eliminar productos
         />
