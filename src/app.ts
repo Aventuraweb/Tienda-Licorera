@@ -63,5 +63,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 // Iniciar el servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
+    console.log(`Servidor frontend corriendo en http://localhost:4321`);
   });
   
