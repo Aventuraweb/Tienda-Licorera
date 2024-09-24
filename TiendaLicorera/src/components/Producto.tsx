@@ -43,6 +43,7 @@ const Productos: React.FC = () => {
     console.log('Producto agregado en handleAddProduct:', newProduct); // Verificar que se llama la función
     setProductos((prevProductos) => [...prevProductos, newProduct]); // Agrega el nuevo producto al final del array
     setShowModal(false); // Cerrar el modal después de agregar el producto
+    fetchProductos(); // Vuelve a obtener la lista de productos desde la API
   };
 
   // Función para actualizar un producto en el estado
